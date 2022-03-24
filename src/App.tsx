@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useReducer } from 'react';
+import AnswerList from './components/AnswerList';
+import NumPad from './components/NumPad';
+import { reducer, initialState } from './gameReducer';
 
-function App() {
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='guess-pin'>
+      <AnswerList pinList={state.pinList} />
+      <NumPad dispatch={dispatch} />
+      {state.message && <div className='message'>{state.message}</div>}
     </div>
   );
-}
+};
 
 export default App;
